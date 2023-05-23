@@ -1,5 +1,5 @@
 # What is SystemTap?
-SystemTap is a powerful dynamic tracing tool for Linux systems that allows you to monitor and gather information about the system's operation without requiring the need for code modification or recompilation. It provides a scripting language that enables you to write custom scripts called `SystemTap scripts` to trace and analyze various aspects of the system, such as kernel function calls, system events, and performance metrics.
+`SystemTap` is a powerful dynamic tracing tool for Linux systems that allows you to monitor and gather information about the system's operation without requiring the need for code modification or recompilation. It provides a scripting language that enables you to write custom scripts called `SystemTap scripts` to trace and analyze various aspects of the system, such as kernel function calls, system events, and performance metrics.
 
 A SystemTap script is a program written in the SystemTap scripting language, which is similar to C programming language syntax. It consists of a set of instructions that specify what events or functions to trace and how to process the gathered data. These scripts can be used to investigate system behavior, identify performance bottlenecks, debug issues, and gain insights into the system's inner workings.
 
