@@ -68,6 +68,22 @@ cp /usr/share/systemtap/examples/network/net.stp ~/systemtap/
 
 3. Modify the script (optional): Open the copied `who_sent_it.stp` script in a text editor. You can modify it to focus on the specific application you want to inspect. For example, you can add filters based on process names or process IDs to narrow down the traced traffic. Edit the script to fit your requirements.
 
+```yaml
+#!/usr/bin/stap
+
+# Print a trace of threads sending IP packets (UDP or TCP) to a given
+# destination port and/or address.  Default is unfiltered.
+
+global the_dport = 0    # override with -G the_dport=53
+global the_daddr = ""   # override with -G the_daddr=127.0.0.1
+
+probe netfilter.ip.local_out {
+    if ((the_dport == 0 || the_dport == dport) &&
+        (the_daddr == "" || the_daddr == daddr))
+	    printf("%s[%d] sent packet to %s:%d\n", execname(), tid(), daddr, dport)
+}
+```
+
 4. Run the SystemTap script: In a terminal, navigate to the directory where you copied the net.stp script. Run the script using the stap command:
 ```bash
 sudo stap who_sent_it.stp
@@ -84,7 +100,24 @@ By default, the `who_sent_it.stp` script captures network traffic system-wide. H
 # Example reading through systemtap output
 Let's assume you have executed the net.stp script as described in the previous steps, and it is currently running and displaying network traffic information in the terminal. The output may look similar to the following:
 ```yaml
-
+...
+swapper/12[0] sent packet to 52.44.223.164:443
+swapper/12[0] sent packet to 142.250.176.78:443
+swapper/12[0] sent packet to 52.44.223.164:443
+Socket Thread[4914] sent packet to 142.251.15.190:443
+Socket Thread[4914] sent packet to 142.251.15.190:443
+Socket Thread[4914] sent packet to 142.251.15.190:443
+Socket Thread[4914] sent packet to 142.251.15.190:443
+Socket Thread[4914] sent packet to 142.251.15.190:443
+swapper/12[0] sent packet to 52.44.223.164:443
+swapper/12[0] sent packet to 52.44.223.164:443
+swapper/12[0] sent packet to 52.44.223.164:443
+^CSocket Thread[4914] sent packet to 64.233.185.94:443
+Socket Thread[4914] sent packet to 64.233.185.94:443
+Chrome_ChildIOT[4356] sent packet to 52.44.223.164:443
+Socket Thread[4914] sent packet to 52.44.223.164:443
+Socket Thread[4914] sent packet to 64.233.185.94:443
+...
 ```
 To read and interpret the output:
 
