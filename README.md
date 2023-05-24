@@ -1,5 +1,5 @@
 # What is SystemTap?
-SystemTap is a powerful dynamic tracing tool for Linux systems that allows you to monitor and gather information about the system's operation without requiring the need for code modification or recompilation. It provides a scripting language that enables you to write custom scripts called "SystemTap scripts" to trace and analyze various aspects of the system, such as kernel function calls, system events, and performance metrics.
+`SystemTap` is a powerful dynamic tracing tool for Linux systems that allows you to monitor and gather information about the system's operation without requiring the need for code modification or recompilation. It provides a scripting language that enables you to write custom scripts called `SystemTap scripts` to trace and analyze various aspects of the system, such as kernel function calls, system events, and performance metrics.
 
 A SystemTap script is a program written in the SystemTap scripting language, which is similar to C programming language syntax. It consists of a set of instructions that specify what events or functions to trace and how to process the gathered data. These scripts can be used to investigate system behavior, identify performance bottlenecks, debug issues, and gain insights into the system's inner workings.
 
@@ -12,17 +12,17 @@ SystemTap provides a vast set of built-in functions and probes that can be used 
 # What are SystemTap scripts used for?
 SystemTap scripts are often used for various purposes in Linux systems. Some common use cases include:
 
-1. Performance analysis: SystemTap scripts can be used to gather performance-related data such as CPU usage, memory usage, disk I/O, network activity, and system call latency. By tracing specific functions or events, these scripts can help identify performance bottlenecks, analyze resource utilization, and optimize system performance.
+1. `Performance analysis`: SystemTap scripts can be used to gather performance-related data such as CPU usage, memory usage, disk I/O, network activity, and system call latency. By tracing specific functions or events, these scripts can help identify performance bottlenecks, analyze resource utilization, and optimize system performance.
 
-2. Debugging and troubleshooting: SystemTap scripts are valuable for diagnosing and troubleshooting issues in a Linux system. They can be used to trace specific functions or system events to identify the root cause of errors, crashes, or unexpected behavior. The scripts can provide detailed information about the system state, function call sequences, variable values, and more.
+2. `Debugging and troubleshooting`: SystemTap scripts are valuable for diagnosing and troubleshooting issues in a Linux system. They can be used to trace specific functions or system events to identify the root cause of errors, crashes, or unexpected behavior. The scripts can provide detailed information about the system state, function call sequences, variable values, and more.
 
-3. Kernel exploration: SystemTap scripts allow developers and system administrators to gain insights into the Linux kernel's behavior. They can trace and analyze kernel function calls, system events, and interactions between different kernel components. This can be helpful for understanding the inner workings of the kernel, identifying potential bugs, or studying specific kernel subsystems.
+3. `Kernel exploration`: SystemTap scripts allow developers and system administrators to gain insights into the Linux kernel's behavior. They can trace and analyze kernel function calls, system events, and interactions between different kernel components. This can be helpful for understanding the inner workings of the kernel, identifying potential bugs, or studying specific kernel subsystems.
 
-4. Security analysis: SystemTap can be used for security-related tasks such as monitoring system calls, tracking file accesses, analyzing network traffic, and detecting anomalies. By writing custom SystemTap scripts, security analysts can gather information about potential security threats, unauthorized activities, or abnormal behavior on the system.
+4. `Security analysis`: SystemTap can be used for security-related tasks such as monitoring system calls, tracking file accesses, analyzing network traffic, and detecting anomalies. By writing custom SystemTap scripts, security analysts can gather information about potential security threats, unauthorized activities, or abnormal behavior on the system.
 
-5. System monitoring and auditing: SystemTap scripts can be used to create custom monitoring tools or augment existing monitoring solutions. They can track system-wide activities, monitor specific processes, generate metrics, and collect data for auditing purposes. System administrators can use these scripts to monitor system performance, track resource usage, or enforce security policies.
+5. `System monitoring and auditing`: SystemTap scripts can be used to create custom monitoring tools or augment existing monitoring solutions. They can track system-wide activities, monitor specific processes, generate metrics, and collect data for auditing purposes. System administrators can use these scripts to monitor system performance, track resource usage, or enforce security policies.
 
-6. Tracing application behavior: SystemTap can help in understanding the behavior of specific applications by tracing their function calls, system interactions, and resource usage. It can provide insights into how an application utilizes system resources, identifies performance bottlenecks within the application, or troubleshoots issues specific to the application's runtime environment.
+6. `Tracing application behavior`: SystemTap can help in understanding the behavior of specific applications by tracing their function calls, system interactions, and resource usage. It can provide insights into how an application utilizes system resources, identifies performance bottlenecks within the application, or troubleshoots issues specific to the application's runtime environment.
 
 # How do you write a simple SystemTap script in RHEL?
 To write a SystemTap script in Red Hat Enterprise Linux (RHEL), you'll need to follow these general steps:
@@ -86,13 +86,13 @@ Source IP: 10.0.0.2 | Destination IP: 192.168.0.1 | Port: 443 | Packet Size: 512
 ```
 To read and interpret the output:
 
-1. Source IP: The "Source IP" field represents the IP address of the sender of the network traffic.
+1. `Source IP`: The `Source IP` field represents the IP address of the sender of the network traffic.
 
-2. Destination IP: The "Destination IP" field indicates the IP address of the receiver of the network traffic.
+2. `Destination IP`: The `Destination IP` field indicates the IP address of the receiver of the network traffic.
 
-3. Port: The "Port" field specifies the port number associated with the network traffic. It can indicate the source or destination port depending on the direction of the traffic.
+3. `Port`: The `Port` field specifies the port number associated with the network traffic. It can indicate the source or destination port depending on the direction of the traffic.
 
-4. Packet Size: The "Packet Size" field shows the size of the network packet in bytes.
+4. `Packet Size`: The `Packet Size` field shows the size of the network packet in bytes.
 
 You can observe these fields to understand the flow of network traffic and gather insights about the communication happening in your system.
 
