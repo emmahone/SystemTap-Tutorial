@@ -64,6 +64,69 @@ To create a simple SystemTap script to inspect the network traffic of an applica
 mkdir ~/systemtap
 cp /usr/share/systemtap/examples/network/net.stp ~/systemtap/
 ```
+
+
+/usr/share/systemtap/examples/network/netdev.stp
+```stp
+#!/usr/bin/stap
+
+############################################################
+# netdev.stp
+# Author: Breno Leitao <leitao@linux.vnet.ibm.com>
+# An example script to show how a netdev works and its
+# functions
+############################################################
+
+
+probe netdev.get_stats ? {
+	printf("%s was asked for statistics structure\n", dev_name)
+}
+
+probe netdev.register{
+	printf("Registering netdev_name %s\n", dev_name)
+}
+
+probe netdev.unregister{
+	printf("Unregistering netdev %s\n", dev_name)
+}
+
+probe netdev.ioctl{
+	printf("Netdev ioctl raised with param: %d and arg: %s\n", cmd, arg)
+}
+
+probe netdev.set_promiscuity {
+	if (enable)
+		printf("Device %s entering in promiscuous mode\n", dev_name)
+	else
+		printf("Device %s leaving promiscuous mode\n", dev_name)
+}
+
+probe netdev.change_rx_flag ? {
+	printf("Device %s is changing its RX flags to %d\n", dev_name, flags)
+}
+
+probe netdev.change_mtu {
+	printf("Changing MTU on device %s from %d to %d\n", dev_name,
+				 old_mtu, new_mtu)
+}
+
+probe netdev.change_mac {
+	printf("Changing MAC address on device %s from %s to %s\n",
+				dev_name, old_mac, new_mac)
+}
+
+probe netdev.transmit {
+	printf("Device %s is sending (queued) a packet with protocol %d\n", dev_name, protocol)
+}
+
+probe netdev.hard_transmit {
+	printf("Device %s is sending (hard) a packet with protocol %d\n", dev_name, protocol)
+}
+
+probe netdev.rx {
+	printf("Device %s received a packet with protocol %d\n", dev_name, protocol)
+}
+```
 3. Modify the script (optional): Open the copied `net.stp` script in a text editor. You can modify it to focus on the specific application you want to inspect. For example, you can add filters based on process names or process IDs to narrow down the traced traffic. Edit the script to fit your requirements.
 4. Run the SystemTap script: In a terminal, navigate to the directory where you copied the net.stp script. Run the script using the stap command:
 ```bash
