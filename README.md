@@ -121,8 +121,9 @@ Socket Thread[4914] sent packet to 64.233.185.94:443
 ```
 To read and interpret the output:
 
-1. The `Source` field indicates the process/socket that was the source for the sent packet
-2. The `Destination` field indicates the destination IP for the packet being sent
+1. `Source`: The `Source` field indicates the process/socket sending a packet
+2. `Destination`: The `Destination` field identifies the destination IP of the packet being sent
+
 
 You can observe these fields to understand the flow of network traffic and gather insights about the communication happening in your system.
 
