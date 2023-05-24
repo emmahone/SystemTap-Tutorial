@@ -130,3 +130,6 @@ You can observe these fields to understand the flow of network traffic and gathe
 Additionally, you can leverage the SystemTap script to customize the output and include more information if needed. For instance, you can include timestamps, protocol information, or additional metadata related to the network traffic.
 
 By examining the output and analyzing the network traffic patterns, you can gain insights into the behavior of the application or system you are monitoring. This information can be useful for troubleshooting, performance analysis, or security analysis purposes.
+
+# Further Examples
+Another example of using systemtap can be found [here](https://access.redhat.com/solutions/2759001)
