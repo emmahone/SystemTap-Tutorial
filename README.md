@@ -100,7 +100,7 @@ The `stap` command compiles and loads the SystemTap script into the running kern
 Note: Running SystemTap scripts usually requires root privileges (sudo) as it involves accessing and tracing system resources.
 
 6. Terminate the script: To stop the SystemTap script, press `Ctrl + C` in the terminal where it's running. The script will be unloaded from the kernel, and the tracing will be stopped.
-By default, the net.stp script captures network traffic system-wide. However, you can customize it to focus on specific processes or network conditions by modifying the script accordingly. Refer to the comments within the `who_sent_it.stp` script for further guidance on its usage and customization options.
+By default, the `who_sent_it.stp` script captures network traffic system-wide. However, you can customize it to focus on specific processes or network conditions by modifying the script accordingly. Refer to the comments within the `who_sent_it.stp` script for further guidance on its usage and customization options.
 
 # Example reading through systemtap output
 Let's assume you have executed the `who_sent_it.stp` script as described in the previous steps, and it is currently running and displaying network traffic information in the terminal. The output may look similar to the following:
