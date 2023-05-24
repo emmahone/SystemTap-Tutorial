@@ -56,43 +56,40 @@ Note: The first time you run a SystemTap script, it may prompt you to build and 
 
 Remember to adjust the script according to your specific tracing requirements and the events or functions you want to monitor. The SystemTap documentation ([here](https://sourceware.org/systemtap/documentation.html) and [here](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html-single/systemtap_beginners_guide/index)) provides detailed information on the available probes, functions, and scripting capabilities, allowing you to write more complex scripts for advanced tracing and analysis.
 
-# Example using `net.stp`
-To create a simple SystemTap script to inspect the network traffic of an application running on a RHEL machine, you can use the net.stp script that comes with the SystemTap examples. Here are the steps to follow:
-1. Locate the `net.stp` script: The `net.stp` script is provided as an example script with SystemTap. You can find it in the SystemTap examples directory. On RHEL, the path is typically `/usr/share/systemtap/examples/network/net.stp`.
-2. Copy the `net.stp` script: Copy the `net.stp` script to a directory of your choice on your RHEL machine. For example, you can create a `systemtap` directory in your home folder and copy the script there:
+# Example using `who_sent_it.stp`
+To create a simple SystemTap script to inspect the network traffic of an application running on a RHEL machine, you can use the `who_sent_it.stp` script that comes with the SystemTap examples. Here are the steps to follow:
+1. Locate the `who_sent_it.stp` script: The `who_sent_it.stp` script is provided as an example script with SystemTap. You can find it in the SystemTap examples directory. On RHEL, the path is typically `/usr/share/systemtap/examples/network/who_sent_it.stp`.
+
+2. Copy the `who_sent_it.stp` script: Copy the `who_sent_it.stp` script to a directory of your choice on your RHEL machine. For example, you can create a `systemtap` directory in your home folder and copy the script there:
 ```bash
 mkdir ~/systemtap
 cp /usr/share/systemtap/examples/network/net.stp ~/systemtap/
 ```
-3. Modify the script (optional): Open the copied `net.stp` script in a text editor. You can modify it to focus on the specific application you want to inspect. For example, you can add filters based on process names or process IDs to narrow down the traced traffic. Edit the script to fit your requirements.
+
+3. Modify the script (optional): Open the copied `who_sent_it.stp` script in a text editor. You can modify it to focus on the specific application you want to inspect. For example, you can add filters based on process names or process IDs to narrow down the traced traffic. Edit the script to fit your requirements.
+
 4. Run the SystemTap script: In a terminal, navigate to the directory where you copied the net.stp script. Run the script using the stap command:
 ```bash
-sudo stap net.stp
+sudo stap who_sent_it.stp
 ```
-The `stap` command compiles and loads the SystemTap script into the running kernel. It starts tracing the network traffic according to the specified rules.
+The `who_sent_it.stp` command compiles and loads the SystemTap script into the running kernel. It starts tracing the network traffic according to the specified rules.
+
 5. Observe the network traffic: As the application runs, you should see the network traffic being monitored and displayed in the terminal. The script captures information such as source and destination IP addresses, port numbers, packet sizes, and more.
 
 Note: Running SystemTap scripts usually requires root privileges (sudo) as it involves accessing and tracing system resources.
 
 6. Terminate the script: To stop the SystemTap script, press `Ctrl + C` in the terminal where it's running. The script will be unloaded from the kernel, and the tracing will be stopped.
-By default, the net.stp script captures network traffic system-wide. However, you can customize it to focus on specific processes or network conditions by modifying the script accordingly. Refer to the comments within the net.stp script for further guidance on its usage and customization options.
+By default, the `who_sent_it.stp` script captures network traffic system-wide. However, you can customize it to focus on specific processes or network conditions by modifying the script accordingly. Refer to the comments within the net.stp script for further guidance on its usage and customization options.
 
 # Example reading through systemtap output
 Let's assume you have executed the net.stp script as described in the previous steps, and it is currently running and displaying network traffic information in the terminal. The output may look similar to the following:
 ```yaml
-Source IP: 192.168.0.1 | Destination IP: 10.0.0.2 | Port: 8080 | Packet Size: 1024 bytes
-Source IP: 10.0.0.2 | Destination IP: 192.168.0.1 | Port: 443 | Packet Size: 512 bytes
-...
+
 ```
 To read and interpret the output:
 
-1. `Source IP`: The `Source IP` field represents the IP address of the sender of the network traffic.
-
-2. `Destination IP`: The `Destination IP` field indicates the IP address of the receiver of the network traffic.
-
-3. `Port`: The `Port` field specifies the port number associated with the network traffic. It can indicate the source or destination port depending on the direction of the traffic.
-
-4. `Packet Size`: The `Packet Size` field shows the size of the network packet in bytes.
+1. The `Source` field indicates the process/socket that was the source for the sent packet
+2. The `Destination` field indicates the destination IP for the packet being sent
 
 You can observe these fields to understand the flow of network traffic and gather insights about the communication happening in your system.
 
