@@ -31,7 +31,6 @@ To write a SystemTap script in Red Hat Enterprise Linux (RHEL), you'll need to f
 ```bash
 sudo yum install systemtap systemtap-runtime
 ```
-
 2. Write the SystemTap script: Create a new file with a `.stp` extension (e.g., `script.stp`) and open it in a text editor. This file will contain your SystemTap script code.
 
 Here's an example of a simple SystemTap script that prints a message when a specific function is called:
@@ -44,7 +43,6 @@ probe kernel.function("my_function") {
 ```
 
 3. Save the SystemTap script: Save the script file in a convenient location on your system.
-
 4. Compile and run the SystemTap script: To compile and run the script, you need to use the `stap` command followed by the script's filename. Run the following command in a terminal:
 ```bash
 sudo stap script.stp
@@ -54,7 +52,6 @@ If the script requires additional privileges, you may need to run it with sudo o
 The `stap` command will compile the script into a kernel module, load it into the running kernel, and start tracing the specified events or functions. You should see the output of the script in the terminal as the events occur.
 
 Note: The first time you run a SystemTap script, it may prompt you to build and load debuginfo packages. Follow the instructions provided to install the necessary debuginfo packages.
-
 5. Terminate the script: To stop the script's execution, press `Ctrl + C` in the terminal where it's running. The SystemTap script will be unloaded from the kernel, and the tracing will be stopped.
 
 Remember to adjust the script according to your specific tracing requirements and the events or functions you want to monitor. The SystemTap documentation ([here](https://sourceware.org/systemtap/documentation.html) and [here](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html-single/systemtap_beginners_guide/index)) provides detailed information on the available probes, functions, and scripting capabilities, allowing you to write more complex scripts for advanced tracing and analysis.
@@ -65,9 +62,10 @@ To create a simple SystemTap script to inspect the network traffic of an applica
 1. Locate the `who_sent_it.stp` script: The `who_sent_it.stp` script is provided as an example script with SystemTap. You can find it in the SystemTap examples directory. On RHEL, the path is typically `/usr/share/systemtap/examples/network/who_sent_it.stp`.
 
 2. Copy the `who_sent_it.stp` script: Copy the `who_sent_it.stp` script to a directory of your choice on your RHEL machine. For example, you can create a `systemtap` directory in your home folder and copy the script there:
+
 ```bash
 mkdir ~/systemtap
-cp /usr/share/systemtap/examples/network/net.who_sent_it.stp ~/systemtap/
+cp /usr/share/systemtap/examples/network/net.stp ~/systemtap/
 ```
 
 3. Modify the script (optional): Open the copied `who_sent_it.stp` script in a text editor. You can modify it to focus on the specific application you want to inspect. For example, you can add filters based on process names or process IDs to narrow down the traced traffic. Edit the script to fit your requirements.
@@ -90,11 +88,11 @@ probe netfilter.ip.local_out {
 ```
 
 5. Run the SystemTap script: In a terminal, navigate to the directory where you copied the `who_sent_it.stp` script. Run the script using the stap command:
+
 ```bash
-sudo stap who_sent_it.stp
+sudo stap net.stp
 ```
 The `stap` command compiles and loads the SystemTap script into the running kernel. It starts tracing the network traffic according to the specified rules.
-
 5. Observe the network traffic: As the application runs, you should see the network traffic being monitored and displayed in the terminal. The script captures information such as source and destination IP addresses, port numbers, packet sizes, and more.
 
 Note: Running SystemTap scripts usually requires root privileges (sudo) as it involves accessing and tracing system resources.
@@ -105,29 +103,19 @@ By default, the `who_sent_it.stp` script captures network traffic system-wide. H
 # Example reading through systemtap output
 Let's assume you have executed the `who_sent_it.stp` script as described in the previous steps, and it is currently running and displaying network traffic information in the terminal. The output may look similar to the following:
 ```yaml
-...
-swapper/12[0] sent packet to 52.44.223.164:443
-swapper/12[0] sent packet to 142.250.176.78:443
-swapper/12[0] sent packet to 52.44.223.164:443
-Socket Thread[4914] sent packet to 142.251.15.190:443
-Socket Thread[4914] sent packet to 142.251.15.190:443
-Socket Thread[4914] sent packet to 142.251.15.190:443
-Socket Thread[4914] sent packet to 142.251.15.190:443
-Socket Thread[4914] sent packet to 142.251.15.190:443
-swapper/12[0] sent packet to 52.44.223.164:443
-swapper/12[0] sent packet to 52.44.223.164:443
-swapper/12[0] sent packet to 52.44.223.164:443
-^CSocket Thread[4914] sent packet to 64.233.185.94:443
-Socket Thread[4914] sent packet to 64.233.185.94:443
-Chrome_ChildIOT[4356] sent packet to 52.44.223.164:443
-Socket Thread[4914] sent packet to 52.44.223.164:443
-Socket Thread[4914] sent packet to 64.233.185.94:443
+Source IP: 192.168.0.1 | Destination IP: 10.0.0.2 | Port: 8080 | Packet Size: 1024 bytes
+Source IP: 10.0.0.2 | Destination IP: 192.168.0.1 | Port: 443 | Packet Size: 512 bytes
 ...
 ```
 To read and interpret the output:
 
-1. `Source`: The `Source` field indicates the process/socket sending a packet
-2. `Destination`: The `Destination` field identifies the destination IP of the packet being sent
+1. `Source IP`: The `Source IP` field represents the IP address of the sender of the network traffic.
+
+2. `Destination IP`: The `Destination IP` field indicates the IP address of the receiver of the network traffic.
+
+3. `Port`: The `Port` field specifies the port number associated with the network traffic. It can indicate the source or destination port depending on the direction of the traffic.
+
+4. `Packet Size`: The `Packet Size` field shows the size of the network packet in bytes.
 
 You can observe these fields to understand the flow of network traffic and gather insights about the communication happening in your system.
 
